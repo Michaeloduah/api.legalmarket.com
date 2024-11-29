@@ -36,8 +36,11 @@ class AuthenticatedSessionController extends Controller
                 "status" => 200,
                 "success" => true,
                 "message" => "Welcome back!",
+                "token" => $token,
                 "data"=>[
-                    "token" => $token,
+                    "user" => $user,
+                    "profile" => $user->load("profile"),
+                    "professional_profile" => $user->load("professionalProfile"),
                 ]
             ]);
         }

@@ -49,4 +49,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_uuid', 'uuid');
+    }
+    
+    public function professionalProfile()
+    {
+        return $this->hasOne(ProfessionalProfile::class, 'user_uuid', 'uuid');
+    }
 }

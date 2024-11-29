@@ -46,14 +46,10 @@ class RegisteredUserController extends Controller
         // Dispatch the registered event
         event(new Registered($user));
 
-        // Generate a personal access token for the user
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         // Return a JSON response with the user details and token
         return response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
-            'token' => $token,
         ], 201);
     }
 }
