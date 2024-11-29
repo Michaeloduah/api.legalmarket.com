@@ -7,4 +7,5 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-require __DIR__.'/auth.php';
+require __DIR__.'/endpoints/auth.php';
+require __DIR__.'/endpoints/storage.php';
