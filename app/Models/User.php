@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ProfessionalProfile::class, 'user_uuid', 'uuid');
     }
+    
+    public function lawyerProfile()
+    {
+        return $this->hasOne(LawyerProfile::class, 'user_uuid', 'uuid');
+    }
 }

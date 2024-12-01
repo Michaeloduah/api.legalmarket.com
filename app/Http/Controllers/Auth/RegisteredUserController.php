@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\Rules;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\LawyerProfile;
+use App\Models\ProfessionalProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -43,6 +45,23 @@ class RegisteredUserController extends Controller
             'role' => $validated['role'],
         ]);
 
+        Profile::create([
+            "user_uuid" => $user->uuid,
+        ]);
+
+        ProfessionalProfile::create([
+            "user_uuid" => $user->uuid,
+        ]);
+
+        if ($user->role === "lawyer") {
+            LawyerProfile::create([
+                "user_uuid" => $user->uuid,
+            ]);
+        } else {
+            $lawyerprofile = null;
+        };
+
+
         // Dispatch the registered event
         event(new Registered($user));
 
@@ -50,6 +69,8 @@ class RegisteredUserController extends Controller
         return response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
+            'profile' => $user->load("profile"),
+            'Professional Profile' => $user->load("professionalprofile"),
         ], 201);
     }
 }
