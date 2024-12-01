@@ -68,9 +68,7 @@ class RegisteredUserController extends Controller
         // Return a JSON response with the user details and token
         return response()->json([
             'message' => 'User registered successfully',
-            'user' => $user,
-            'profile' => $user->load("profile"),
-            'Professional Profile' => $user->load("professionalprofile"),
+            "user" => $user->load("profile", "professionalProfile"),
         ], 201);
     }
 }

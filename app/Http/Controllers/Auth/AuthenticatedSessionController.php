@@ -38,9 +38,7 @@ class AuthenticatedSessionController extends Controller
                 "message" => "Welcome back!",
                 "token" => $token,
                 "data"=>[
-                    "user" => $user,
-                    "profile" => $user->load("profile"),
-                    "professional_profile" => $user->load("professionalProfile"),
+                    "user" => $user->load("profile", "professionalProfile"),
                 ]
             ]);
         }
